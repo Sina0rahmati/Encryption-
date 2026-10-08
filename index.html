@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cipher Studio</title>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#e9e4f2;--bg2:#cfe6e3;--card:rgba(255,255,255,.78);--ink:#1b2430;--mute:#66707c;--line:#d3cde0;--acc:#2a7f78;--accD:#175b55;--accT:#fff;--out:rgba(30,60,70,.07);--o1:#fff;--o2:#7fc9c0;--o3:#b7a6ee;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0b1117;--bg2:#13232b;--card:rgba(24,36,44,.8);--ink:#e8f0f2;--mute:#8da0a8;--line:#2b3d46;--acc:#5fd0c2;--accD:#2c8c81;--accT:#06100f;--out:rgba(0,0,0,.35);--o1:#d6fff9;--o2:#2b8f86;--o3:#5a4aa8}}
+:root[data-theme="dark"]{--bg:#0b1117;--bg2:#13232b;--card:rgba(24,36,44,.8);--ink:#e8f0f2;--mute:#8da0a8;--line:#2b3d46;--acc:#5fd0c2;--accD:#2c8c81;--accT:#06100f;--out:rgba(0,0,0,.35);--o1:#d6fff9;--o2:#2b8f86;--o3:#5a4aa8}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;color:var(--ink);background:radial-gradient(1200px 700px at 15% 0%,var(--bg2),transparent),var(--bg);font:400 16px/1.8 Vazirmatn,Tahoma,"Segoe UI",sans-serif;min-height:100vh;display:flex;justify-content:center;padding:18px 14px 28px;perspective:1300px;overflow-x:hidden;transition:background .4s}
+.orb{position:fixed;border-radius:50%;background:radial-gradient(circle at 30% 28%,var(--o1),var(--o2) 55%,#0003);box-shadow:0 30px 50px -20px #0005;animation:fl 9s ease-in-out infinite;z-index:0;pointer-events:none}
+.o1{width:150px;height:150px;top:8%;inset-inline-start:-40px}
+.o2{width:90px;height:90px;bottom:12%;inset-inline-end:6%;background:radial-gradient(circle at 30% 28%,var(--o1),var(--o3) 55%,#0003);animation-delay:-3s}
+.o3{width:46px;height:46px;top:30%;inset-inline-end:10%;animation-delay:-6s}
+@keyframes fl{50%{transform:translateY(-26px) translateX(10px)}}
+@media (prefers-reduced-motion:reduce){.orb{animation:none}*{transition:none!important}}
+main{width:100%;max-width:660px;position:relative;z-index:1}
+.bar{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.lang{display:flex;align-items:center;gap:4px;padding:5px 6px;border-radius:40px;background:var(--card);border:1px solid var(--line);box-shadow:0 8px 20px -10px #0005}
+.globe{width:28px;height:28px;border-radius:50%;background:radial-gradient(circle at 32% 30%,#fff9,transparent 40%),conic-gradient(from 0deg,#2f9bd6,#46c27d,#2f9bd6,#46c27d,#2f9bd6);box-shadow:inset -5px -5px 9px #0006,0 3px 6px #0004;animation:sp 8s linear infinite}
+@keyframes sp{to{filter:hue-rotate(360deg)}}
+.lang button{padding:3px 11px;border-radius:30px;background:transparent;color:var(--mute);font-size:13px;font-weight:600;box-shadow:none}
+.lang button.on{background:var(--acc);color:var(--accT);box-shadow:0 3px 0 var(--accD),0 6px 10px #0003;transform:translateY(-1px)}
+.tg{width:70px;height:36px;padding:0;border-radius:30px;position:relative;background:linear-gradient(#8fd3ff,#d9f1ff);box-shadow:inset 0 3px 7px #0004,0 6px 14px -6px #0006;overflow:hidden}
+.tg::before{content:"";position:absolute;left:12px;top:9px;width:3px;height:3px;border-radius:50%;background:#fff;box-shadow:10px 8px 0 #fff,-2px 12px 0 #fff;opacity:0;transition:opacity .4s}
+.orbT{position:absolute;top:4px;inset-inline-start:4px;width:28px;height:28px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff7b0,#ffb800);box-shadow:0 0 14px 4px #ffc83d99,inset -3px -3px 5px #c77d00;transition:transform .45s cubic-bezier(.5,1.6,.5,1),background .4s,box-shadow .4s}
+:root[data-theme="dark"] .tg,:root:not([data-theme="light"]) .tg.d{background:linear-gradient(#0a1230,#1d2a5c)}
+.tg.d::before{opacity:1}
+.tg.d .orbT{transform:translateX(34px);background:radial-gradient(circle at 35% 30%,#fff,#b9c4dd);box-shadow:0 0 12px 2px #b9c4dd88,inset -9px -3px 0 -2px #7d8bb0}
+[dir=rtl] .tg.d .orbT{transform:translateX(-34px)}
