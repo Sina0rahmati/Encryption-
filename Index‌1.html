@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cipher Studio</title>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#e9e4f2;--bg2:#cfe6e3;--card:rgba(255,255,255,.78);--ink:#1b2430;--mute:#66707c;--line:#d3cde0;--acc:#2a7f78;--accD:#175b55;--accT:#fff;--out:rgba(30,60,70,.07);--o1:#fff;--o2:#7fc9c0;--o3:#b7a6ee;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0b1117;--bg2:#13232b;--card:rgba(24,36,44,.8);--ink:#e8f0f2;--mute:#8da0a8;--line:#2b3d46;--acc:#5fd0c2;--accD:#2c8c81;--accT:#06100f;--out:rgba(0,0,0,.35);--o1:#d6fff9;--o2:#2b8f86;--o3:#5a4aa8}}
+:root[data-theme="dark"]{--bg:#0b1117;--bg2:#13232b;--card:rgba(24,36,44,.8);--ink:#e8f0f2;--mute:#8da0a8;--line:#2b3d46;--acc:#5fd0c2;--accD:#2c8c81;--accT:#06100f;--out:rgba(0,0,0,.35);--o1:#d6fff9;--o2:#2b8f86;--o3:#5a4aa8}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;color:var(--ink);background:radial-gradient(1200px 700px at 15% 0%,var(--bg2),transparent),var(--bg);font:400 16px/1.8 Vazirmatn,Tahoma,"Segoe UI",sans-serif;min-height:100vh;display:flex;justify-content:center;padding:18px 14px 28px;perspective:1300px;overflow-x:hidden;transition:background .4s}
+.orb{position:fixed;border-radius:50%;background:radial-gradient(circle at 30% 28%,var(--o1),var(--o2) 55%,#0003);box-shadow:0 30px 50px -20px #0005;animation:fl 9s ease-in-out infinite;z-index:0;pointer-events:none}
+.o1{width:150px;height:150px;top:8%;inset-inline-start:-40px}
+.o2{width:90px;height:90px;bottom:12%;inset-inline-end:6%;background:radial-gradient(circle at 30% 28%,var(--o1),var(--o3) 55%,#0003);animation-delay:-3s}
+.o3{width:46px;height:46px;top:30%;inset-inline-end:10%;animation-delay:-6s}
+@keyframes fl{50%{transform:translateY(-26px) translateX(10px)}}
+@media (prefers-reduced-motion:reduce){.orb{animation:none}*{transition:none!important}}
+main{width:100%;max-width:660px;position:relative;z-index:1}
+.bar{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.lang{display:flex;align-items:center;gap:4px;padding:5px 6px;border-radius:40px;background:var(--card);border:1px solid var(--line);box-shadow:0 8px 20px -10px #0005}
+.globe{width:28px;height:28px;border-radius:50%;background:radial-gradient(circle at 32% 30%,#fff9,transparent 40%),conic-gradient(from 0deg,#2f9bd6,#46c27d,#2f9bd6,#46c27d,#2f9bd6);box-shadow:inset -5px -5px 9px #0006,0 3px 6px #0004;animation:sp 8s linear infinite}
+@keyframes sp{to{filter:hue-rotate(360deg)}}
+.lang button{padding:3px 11px;border-radius:30px;background:transparent;color:var(--mute);font-size:13px;font-weight:600;box-shadow:none}
+.lang button.on{background:var(--acc);color:var(--accT);box-shadow:0 3px 0 var(--accD),0 6px 10px #0003;transform:translateY(-1px)}
+.tg{width:70px;height:36px;padding:0;border-radius:30px;position:relative;background:linear-gradient(#8fd3ff,#d9f1ff);box-shadow:inset 0 3px 7px #0004,0 6px 14px -6px #0006;overflow:hidden}
+.tg::before{content:"";position:absolute;left:12px;top:9px;width:3px;height:3px;border-radius:50%;background:#fff;box-shadow:10px 8px 0 #fff,-2px 12px 0 #fff;opacity:0;transition:opacity .4s}
+.orbT{position:absolute;top:4px;inset-inline-start:4px;width:28px;height:28px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff7b0,#ffb800);box-shadow:0 0 14px 4px #ffc83d99,inset -3px -3px 5px #c77d00;transition:transform .45s cubic-bezier(.5,1.6,.5,1),background .4s,box-shadow .4s}
+:root[data-theme="dark"] .tg,:root:not([data-theme="light"]) .tg.d{background:linear-gradient(#0a1230,#1d2a5c)}
+.tg.d::before{opacity:1}
+.tg.d .orbT{transform:translateX(34px);background:radial-gradient(circle at 35% 30%,#fff,#b9c4dd);box-shadow:0 0 12px 2px #b9c4dd88,inset -9px -3px 0 -2px #7d8bb0}
+[dir=rtl] .tg.d .orbT{transform:translateX(-34px)}
+h1{font-size:34px;font-weight:800;margin:6px 0 2px;letter-spacing:.5px;color:var(--ink);text-shadow:1px 1px 0 var(--accD),2px 2px 0 var(--accD),3px 3px 0 var(--accD),4px 9px 14px #0005}
+p.sub{margin:0 0 18px;color:var(--mute);font-size:14px}#mode{font-weight:800;color:var(--acc)}
+.card{position:relative;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:20px;transform-style:preserve-3d;transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .18s ease-out;box-shadow:0 40px 60px -30px #0006,inset 0 1px 0 #fff6}
+.card::before{content:"";position:absolute;inset:0;border-radius:20px;background:var(--line);transform:translateZ(-16px) translateY(9px);z-index:-1;box-shadow:0 30px 40px -20px #0007}
+label{display:block;font-weight:600;font-size:14px;margin:12px 0 6px}
+textarea,input{width:100%;font:inherit;color:var(--ink);background:var(--out);border:1px solid var(--line);border-radius:12px;padding:10px 12px;box-shadow:inset 0 3px 6px #0002}
+textarea{min-height:120px;resize:vertical}
+textarea:focus,input:focus,button:focus-visible{outline:2px solid var(--acc);outline-offset:1px}
+#inL{padding-inline-end:58px}#out{min-height:100px}#out.code{direction:ltr;text-align:left;font-family:ui-monospace,Consolas,monospace;font-size:13px;word-break:break-all}
+.row{display:flex;gap:12px;margin-top:16px}
+button{font:inherit;font-weight:600;border:0;border-radius:12px;padding:11px 16px;cursor:pointer;transition:transform .08s,box-shadow .08s}
+#go{flex:1;background:linear-gradient(var(--acc),var(--accD));color:var(--accT);box-shadow:0 5px 0 var(--accD),0 12px 18px -6px #0006}
+#copy{background:var(--card);color:var(--ink);border:1px solid var(--line);box-shadow:0 5px 0 var(--line),0 10px 16px -8px #0005}
+#go:active,#copy:active,#swap:active{transform:translateY(4px);box-shadow:0 1px 0 var(--accD)}
+#swap{position:absolute;top:14px;inset-inline-end:14px;width:48px;height:48px;border-radius:50%;padding:0;font-size:22px;background:radial-gradient(circle at 32% 28%,#fff6,transparent 45%),var(--acc);color:var(--accT);box-shadow:0 5px 0 var(--accD),0 10px 16px -6px #0006;transform:translateZ(30px) rotate(var(--rot,0deg));transition:transform .4s}
+.err{color:#d6453a;font-size:14px;margin-top:10px;min-height:1px}
+.note{font-size:12.5px;color:var(--mute);margin-top:12px}
+.ft{display:flex;justify-content:center;margin:26px 0 6px}
+.box{display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 20px;border:1px solid var(--line);border-radius:14px;background:var(--card);font-size:13px;box-shadow:0 14px 24px -14px #0006}
+.box .t{color:var(--mute);font-size:12px}.box a{color:var(--ink);text-decoration:none;display:flex;align-items:center;gap:6px;direction:ltr}.box a:hover{color:var(--acc)}
+</style>
+</head>
+<body>
+<i class="orb o1"></i><i class="orb o2"></i><i class="orb o3"></i>
+<main>
+<div class="bar">
+<div class="lang" role="group" aria-label="Language"><span class="globe" aria-hidden="true"></span>
+<button data-l="fa">FA</button><button data-l="en">EN</button><button data-l="ru">RU</button><button data-l="de">DE</button></div>
+<button class="tg" id="tg" aria-label="Theme" title="Light / Dark"><span class="orbT"></span></button>
+</div>
+<h1 data-i="title"></h1>
+<p class="sub"><span data-i="sub"></span>: <span id="mode"></span></p>
+<section class="card" id="card">
+<button id="swap" aria-label="swap" title="⇄">⇄</button>
+<label for="in" id="inL"></label>
+<textarea id="in" spellcheck="false"></textarea>
+<label for="key" data-i="key"></label>
+<input id="key" type="password" autocomplete="off">
+<div class="row"><button id="go"></button><button id="copy"></button></div>
+<div class="err" id="err" role="alert"></div>
+<label for="out" id="outL"></label>
+<textarea id="out" readonly></textarea>
+</section>
+<footer class="ft"><div class="box">
+<span class="t" data-i="by"></span>
+<a href="mailto:mohammadsinarahmati@gmail.com">mohammadsinarahmati@gmail.com</a>
+<a href="https://t.me/sina_rahii" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#27a7e7"/><path fill="#fff" d="M5.4 11.8l11.2-4.3c.5-.2 1 .1.8.9l-1.9 9c-.1.6-.5.8-1 .5l-2.8-2.1-1.4 1.3c-.2.2-.3.3-.6.3l.2-2.9 5.2-4.7c.2-.2 0-.3-.3-.1l-6.4 4-2.8-.9c-.6-.2-.6-.6.1-.9z"/></svg><span>@sina_rahii</span></a>
+</div></footer>
+</main>
+<script>
+const $=id=>document.getElementById(id);
+const T={
+fa:{title:"رمزنگار",sub:"حالت فعلی",me:"رمزگذاری",md:"رمزگشایی",ie:"متن (فارسی، انگلیسی، روسی، آلمانی)",id:"متن رمزشده",key:"کلید (رمز عبور)",kph:"کلید محرمانه",ge:"رمزگذاری کن",gd:"رمزگشایی کن",cp:"کپی",cd:"کپی شد",pe:"جمله یا متن طولانی‌ات را اینجا بنویس",pd:"متن رمزشده را اینجا بچسبان",oe:"خروجی رمز",od:"متن اصلی",by:"سازنده سایت",
+e1:"ابتدا متن را وارد کن.",e2:"کلید را وارد کن؛ بدون کلید رمز امنی ساخته نمی‌شود.",e3:"رمزگشایی نشد: کلید اشتباه است یا متن رمزشده ناقص است."},
+en:{title:"Cipher Studio",sub:"Current mode",me:"Encrypt",md:"Decrypt",ie:"Text (Persian, English, Russian, German)",id:"Encrypted text",key:"Key (password)",kph:"Secret key",ge:"Encrypt",gd:"Decrypt",cp:"Copy",cd:"Copied",pe:"Write your sentence or long text here",pd:"Paste the encrypted text here",oe:"Encrypted output",od:"Original text",by:"Created by",
+e1:"Enter some text first.",e2:"Enter a key; no safe cipher without one.",e3:"Could not decrypt: wrong key or incomplete ciphertext."},
+ru:{title:"Шифратор",sub:"Текущий режим",me:"Шифрование",md:"Расшифровка",ie:"Текст (фарси, английский, русский, немецкий)",id:"Зашифрованный текст",key:"Ключ (пароль)",kph:"Секретный ключ",ge:"Зашифровать",gd:"Расшифровать",cp:"Копировать",cd:"Скопировано",pe:"Введите предложение или длинный текст",pd:"Вставьте зашифрованный текст",oe:"Результат шифрования",od:"Исходный текст",by:"Автор сайта",
+e1:"Сначала введите текст.",e2:"Введите ключ: без него надёжного шифра не будет.",e3:"Не удалось расшифровать: неверный ключ или неполный шифртекст."},
+de:{title:"Verschlüsseler",sub:"Aktueller Modus",me:"Verschlüsseln",md:"Entschlüsseln",ie:"Text (Persisch, Englisch, Russisch, Deutsch)",id:"Verschlüsselter Text",key:"Schlüssel (Passwort)",kph:"Geheimer Schlüssel",ge:"Verschlüsseln",gd:"Entschlüsseln",cp:"Kopieren",cd:"Kopiert",pe:"Satz oder langen Text hier eingeben",pd:"Verschlüsselten Text hier einfügen",oe:"Verschlüsselte Ausgabe",od:"Originaltext",by:"Erstellt von",
+e1:"Bitte zuerst einen Text eingeben.",e2:"Schlüssel eingeben; ohne ihn gibt es keine sichere Chiffre.",e3:"Entschlüsselung fehlgeschlagen: falscher Schlüssel oder unvollständiger Chiffretext."}
+};
+let L="fa",encMode=true,th="light";
+const store={get:k=>{try{return localStorage.getItem(k)}catch(e){return null}},set:(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}}};
+/* ---- alphabets: Persian(36) + Latin(26) + German(4) + Cyrillic(33) ---- */
+const TAB="ابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهیآءئؤ"+"abcdefghijklmnopqrstuvwxyz"+"äöüß"+"абвгдеёжзийклмнопрстуфхцчшщъыьэюя";
+const M=16777213,MB=BigInt(M),te=new TextEncoder();
+const norm=s=>s.replace(/ي/g,"ی").replace(/ك/g,"ک").replace(/ة/g,"ه").replace(/[أإ]/g,"ا").normalize("NFC");
+function toNums(s){return [...norm(s)].map(ch=>{if(ch===" ")return 0;let i=TAB.indexOf(ch);if(i>=0)return i+1;const lo=ch.toLowerCase();i=lo.length===1?TAB.indexOf(lo):-1;return i>=0?201+i:1000+ch.codePointAt(0)})}
+function fromNums(a){return a.map(n=>n===0?" ":n>=1000?String.fromCodePoint(n-1000):n>=201?TAB[n-201].toUpperCase():TAB[n-1]).join("")}
+function rng(s){return()=>{s|=0;s=s+0x6D2B79F5|0;let t=Math.imul(s^s>>>15,1|s);t=t+Math.imul(t^t>>>7,61|t)^t;return(t^t>>>14)>>>0}}
+function pw(b,e){let r=1n;b%=MB;while(e>0n){if(e&1n)r=r*b%MB;b=b*b%MB;e>>=1n}return r}
+const u32=(k,o)=>((k[o]<<24)|(k[o+1]<<16)|(k[o+2]<<8)|k[o+3])>>>0;
+async function derive(pass,salt){
+ const base=await crypto.subtle.importKey("raw",te.encode(pass),"PBKDF2",false,["deriveBits"]);
+ const k=new Uint8Array(await crypto.subtle.deriveBits({name:"PBKDF2",salt,iterations:200000,hash:"SHA-256"},base,512));
+ const aes=await crypto.subtle.importKey("raw",k.slice(0,32),"AES-GCM",false,["encrypt","decrypt"]);
+ const a=u32(k,32)%(M-2)+2;
+ return{aes,a,inv:Number(pw(BigInt(a),MB-2n)),r:rng(u32(k,36)),seed:u32(k,40)%M};
+}
+function chain(nums,K,enc){const out=[];let prev=K.seed;
+ for(const v of nums){const ks=K.r()%M;
+  if(enc){const c=((v+ks)%M*K.a%M+prev)%M;out.push(c);prev=c}
+  else{const t=(v-prev+M)%M*K.inv%M;out.push((t-ks+M)%M);prev=v}}
+ return out}
+const b64=u=>{let s="";for(let i=0;i<u.length;i+=8192)s+=String.fromCharCode.apply(null,u.subarray(i,i+8192));return btoa(s)};
+const unb64=s=>Uint8Array.from(atob(s.replace(/\s/g,"")),c=>c.charCodeAt(0));
+async function encrypt(text,pass){
+ const salt=crypto.getRandomValues(new Uint8Array(16)),iv=crypto.getRandomValues(new Uint8Array(12));
+ const K=await derive(pass,salt),nums=toNums(text),mid=chain(nums,K,true);
+ const pad=crypto.getRandomValues(new Uint8Array(crypto.getRandomValues(new Uint8Array(1))[0]%32));
+ const buf=new Uint8Array(1+mid.length*3+pad.length);buf[0]=pad.length;
+ mid.forEach((n,i)=>{buf[1+i*3]=n>>16;buf[2+i*3]=(n>>8)&255;buf[3+i*3]=n&255});buf.set(pad,1+mid.length*3);
+ const ct=new Uint8Array(await crypto.subtle.encrypt({name:"AES-GCM",iv},K.aes,buf));
+ const out=new Uint8Array(28+ct.length);out.set(salt);out.set(iv,16);out.set(ct,28);
+ return{out:b64(out),nums,mid}}
+async function decrypt(code,pass){
+ const raw=unb64(code),salt=raw.slice(0,16),iv=raw.slice(16,28),K=await derive(pass,salt);
+ const buf=new Uint8Array(await crypto.subtle.decrypt({name:"AES-GCM",iv},K.aes,raw.slice(28)));
+ const n=(buf.length-1-buf[0])/3,mid=[];
+ for(let i=0;i<n;i++)mid.push((buf[1+i*3]<<16)|(buf[2+i*3]<<8)|buf[3+i*3]);
+ return fromNums(chain(mid,K,false))}
+/* ---- UI ---- */
+function apply(){
+ const t=T[L],h=document.documentElement;h.lang=L;h.dir=L==="fa"?"rtl":"ltr";
+ document.querySelectorAll("[data-i]").forEach(e=>e.textContent=t[e.dataset.i]);
+ $("mode").textContent=encMode?t.me:t.md;$("go").textContent=encMode?t.ge:t.gd;$("copy").textContent=t.cp;
+ $("inL").textContent=encMode?t.ie:t.id;$("outL").textContent=encMode?t.oe:t.od;
+ $("in").dir="auto";$("in").placeholder=encMode?t.pe:t.pd;$("key").placeholder=t.kph;
+ $("out").className=encMode?"code":"";$("out").dir=encMode?"ltr":"auto";
+ document.title=t.title;
+ document.querySelectorAll(".lang [data-l]").forEach(b=>b.classList.toggle("on",b.dataset.l===L));
+ $("err").textContent="";
+}
+document.querySelectorAll(".lang [data-l]").forEach(b=>b.onclick=()=>{L=b.dataset.l;store.set("L",L);apply()});
+function setTheme(x){th=x;document.documentElement.dataset.theme=x;$("tg").classList.toggle("d",x==="dark");store.set("th",x)}
+$("tg").onclick=()=>setTheme(th==="dark"?"light":"dark");
+$("swap").onclick=()=>{const o=$("out").value;encMode=!encMode;apply();$("in").value=o;$("out").value="";$("swap").style.setProperty("--rot",encMode?"0deg":"180deg")};
+$("key").addEventListener("keydown",e=>{if(e.key==="Enter")$("go").click()});
+$("go").onclick=async()=>{const t=T[L];$("err").textContent="";
+ const v=$("in").value.trim(),p=$("key").value;
+ if(!v){$("err").textContent=t.e1;return}
+ if(!p){$("err").textContent=t.e2;return}
+ $("go").disabled=true;
+ try{
+  if(encMode){$("out").value=(await encrypt(v,p)).out}
+  else $("out").value=await decrypt(v,p);
+ }catch(e){$("out").value="";$("err").textContent=t.e3}
+ $("go").disabled=false};
+$("copy").onclick=async()=>{if(!$("out").value)return;try{await navigator.clipboard.writeText($("out").value);$("copy").textContent=T[L].cd;setTimeout(()=>$("copy").textContent=T[L].cp,1200)}catch(e){$("out").select()}};
+/* 3D tilt (mouse only) */
+const card=$("card");
+if(!matchMedia("(prefers-reduced-motion:reduce)").matches){
+ card.addEventListener("pointermove",e=>{if(e.pointerType!=="mouse")return;const r=card.getBoundingClientRect();
+  card.style.setProperty("--ry",((e.clientX-r.left)/r.width-.5)*8+"deg");card.style.setProperty("--rx",-((e.clientY-r.top)/r.height-.5)*6+"deg")});
+ card.addEventListener("pointerleave",()=>{card.style.setProperty("--rx","0deg");card.style.setProperty("--ry","0deg")});
+}
+const sl=store.get("L");if(sl&&T[sl])L=sl;
+setTheme(store.get("th")||(matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light"));
+apply();
+</script>
+</body>
+</html>
